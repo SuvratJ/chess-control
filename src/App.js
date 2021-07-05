@@ -30,7 +30,7 @@ function App() {
   // setBoardState(startingPosition);
   return (
     <div className="App">
-      <Board position={startingPosition}/>
+      <Board position = {startingPosition}/>
     </div>
   );
 }
