@@ -1,17 +1,39 @@
 .App {
   background-color: #374047;
+  display: flex;
   height: 100vh;
-  width: 100vw;
 }
-.chess-board {
+
+.screen-left {
   padding-top: 10vh;
-  padding-left: 10vh;
+  flex-grow: 1;
 }
+
+.screen-right {
+  padding-top: 10vh;
+  padding-right: 10vh;
+  display: inline-block;
+}
+
+.chess-board {
+  border: solid black 1px;
+  width: fit-content;
+  height: fit-content;
+  float: right;
+}
+
 .cell-default {
-  width: calc(calc(70vh/8));
+  width: calc(70vh/8);
   height: calc(70vh/8);
-  background-color: none;
   background: none;
   border: solid black 1px;
+  display: inline;
+}
 
+.cell-active {
+  width: calc(70vh/8);
+  height: calc(70vh/8);
+  background: green;
+  border: solid black 1px;
+  display: inline;
 }
