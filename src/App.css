@@ -22,7 +22,7 @@
   float: right;
 }
 
-.cell-default {
+.cell {
   width: calc(70vh/8);
   height: calc(70vh/8);
   background: none;
@@ -30,10 +30,14 @@
   display: inline;
 }
 
-.cell-active {
-  width: calc(70vh/8);
-  height: calc(70vh/8);
+.active {
   background: green;
-  border: solid black 1px;
-  display: inline;
+}
+
+.can-be-attacked {
+  background: orange;
+}
+
+.is-attacked {
+  background: red;
 }

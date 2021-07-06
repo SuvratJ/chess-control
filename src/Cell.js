@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 
 function Cell(props) {
     var className;
-    if(props.value & (1 << 5))
-        className = "cell-active";
+    if((props.value & (1 << 5)) > 0)
+        className = "cell active";
+    else if((props.value & (1 << 6)) > 0)
+        className = "cell can-be-attacked";
     else
-        className = "cell-default"
+        className = "cell"
     return (
         <button className={className}
         onMouseEnter ={() => props.onMouseEnter()}

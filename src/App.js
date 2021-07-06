@@ -30,11 +30,60 @@ function App() {
     ];
     setBoardState(startingPosition);
   }
+  function activatePiece(i, j, position){
+    position[i][j] = position[i][j] | (1 << 5);
+    var piece = position[i][j] & 15;
+    if(isPawn(piece)) {
+      document.getElementsByClassName('screen-left').item(0).innerHTML = 'pawn';
+    } else if(isRook(piece)) {
+      document.getElementsByClassName('screen-left').item(0).innerHTML = 'rook';
+    } else if(isKnight(piece)) {
+      document.getElementsByClassName('screen-left').item(0).innerHTML = 'knight';
+    } else if(isBishop(piece)) {
+      document.getElementsByClassName('screen-left').item(0).innerHTML = 'bishop';
+    } else if(isQueen(piece)) {
+      document.getElementsByClassName('screen-left').item(0).innerHTML = 'queen';
+    } else if(isKing(piece)) {
+      document.getElementsByClassName('screen-left').item(0).innerHTML = 'king';
+    }
+  }
+  function isPawn(piece) {
+    if(piece == 1 || piece-6 == 1)
+      return true;
+    return false
+  }
+  function isRook(piece) {
+    if(piece == 4 || piece-6 == 4)
+      return true;
+    return false
+  }
+  function isKnight(piece) {
+    if(piece == 2 || piece-6 == 2)
+      return true;
+    return false
+  }
+  function isBishop(piece) {
+    if(piece == 3 || piece-6 == 3)
+      return true;
+    return false
+  }
+  function isQueen(piece) {
+    if(piece == 5 || piece-6 == 5)
+      return true;
+    return false
+  }
+  function isKing(piece) {
+    if(piece == 6 || piece-6 == 6)
+      return true;
+    return false
+  }
   function handleMouseEnter(i, j) {
     var newState = boardState.map(function(arr) {
       return arr.slice();
     });
-    newState[i][j] = newState[i][j] | (1 << 5);
+    if((newState[i][j] & 15) > 0) {
+      activatePiece(i, j, newState);
+    }
     setBoardState(newState);
   }
   function handleMouseLeave(i, j) {
