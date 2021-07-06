@@ -8,8 +8,10 @@ function Row(props) {
         { props.position.map((cellValue, cell) => 
             <Cell value={cellValue} 
             className="cell-default" 
-            onMouseEnter={() => props.onMouseEnter(cell)}
-            onMouseLeave={() => props.onMouseLeave(cell)}
+            onMouseEnter = { () => props.onMouseEnter(cell) }
+            onMouseLeave = { () => props.onMouseLeave(cell) }
+            onMouseDown = { () => props.onMouseDown(cell) }
+            onMouseUp = { () => props.onMouseUp(cell) }
             />)
         }
     </div>

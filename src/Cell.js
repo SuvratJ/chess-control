@@ -9,9 +9,12 @@ function Cell(props) {
     else
         className = "cell"
     return (
-        <button className={className}
-        onMouseEnter ={() => props.onMouseEnter()}
-        onMouseOutCapture = {() => props.onMouseLeave()}>
+        <button className = { className }
+        onMouseEnter = { () => props.onMouseEnter() }
+        onMouseOutCapture = { () => props.onMouseLeave() }
+        onMouseDown = { () => props.onMouseDown() }
+        onMouseUp = { () => props.onMouseUp() }
+        >
             { props.value & 15}
         </button>);
 }
