@@ -4,6 +4,7 @@ import './App.css';
 
 function App() {
   const [boardState, setBoardState] = useState (Array(8).fill(Array(8)));
+  const [selectedPiece, setSelectedPiece] = useState (null);
   /*
     (7, 0) -> a1
     (0, 7) -> h8
@@ -30,7 +31,7 @@ function App() {
     ];
     setBoardState(startingPosition);
   }
-  function activatePiece(i, j, position){
+  function activatePiece(i, j, position) {
     position[i][j] = position[i][j] | (1 << 5);
     var piece = position[i][j] & 15;
     for(let cells of getAttackedSquares(piece, i, j)) {
@@ -186,17 +187,47 @@ function App() {
     setBoardState(newState);
   }
   function handleMouseUp(i, j) {
-    
+    var newState = boardState.map(function(arr) {
+      return arr.slice();
+    });
+    deselectPiece (i, j, newState);
+    setBoardState (newState);
   }
   function handleMouseDown(i, j) {
-    document.getElementsByClassName('screen-left').item(0).innerHTML += ('\nMouseDown' + i + j);
+    var newState = boardState.map(function(arr) {
+      return arr.slice();
+    });
+    if((newState[i][j] & 15) > 0) {
+      selectPiece(i, j, newState);
+    }
+    setBoardState(newState);
+  }
+  function selectPiece(i, j, position) {
+    setSelectedPiece([i, j]);
+    position[i][j] = position[i][j] | (1 << 7);
+    var piece = position[i][j] & 15;
+    for(let cells of getAttackedSquares(piece, i, j)) {
+      position[cells[0]][cells[1]] = position[cells[0]][cells[1]] | (1<<8);
+    }
+  }
+  function deselectPiece(i, j, position) {
+    var [fromi, fromj] = selectedPiece;
+    var toMove = (position[i][j] & (1<<8)) > 0
+    setSelectedPiece (null);
+    position[fromi][fromj] = position[fromi][fromj] & (~(1 << 7));
+    var piece = position[fromi][fromj] & 15;
+    for(let cells of getAttackedSquares(piece, fromi, fromj)) {
+      position[cells[0]][cells[1]] = position[cells[0]][cells[1]] & (~(1<<8));
+    }
+    if(toMove)
+      [position[fromi][fromj], position[i][j]] = [position[i][j], position[fromi][fromj]];
   }
   return (
     <div className="App">
       <span className="screen-left">
       </span>
       <span className="screen-right">
-        <Board position = {boardState}
+        <Board position = { boardState }
           onMouseEnter = { (i, j) => handleMouseEnter(i, j) }
           onMouseLeave = { (i, j) => handleMouseLeave(i, j) }
           onMouseDown = { (i, j) => handleMouseDown(i, j) }

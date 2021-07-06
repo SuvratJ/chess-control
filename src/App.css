@@ -33,7 +33,9 @@
 .active {
   background: green;
 }
-
+.selected {
+  background: darkgreen;
+}
 .can-be-attacked {
   background: orange;
 }
